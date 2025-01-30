@@ -24,8 +24,10 @@ Your first task is to discover and submit the **name of the host** within the **
 
 ### **What We're Doing:**
 We began by looking for **suspicious login activities** by querying the **DeviceLogonEvents** table. These events track successful and failed login attempts on devices. We aimed to detect any **brute-force attacks** or credential stuffing attempts.
-
 ### **The Query:**
+
+### **SQL Code**
+
 ```kusto
 let SuspiciousLogins =
    DeviceLogonEvents
@@ -42,6 +44,9 @@ let SuspiciousLogins =
 - **Excluding System Accounts**: We excluded **system accounts** such as `"root"`, `"labuser"`, and `"admin"`, since these accounts are typically not used by regular users and may not be relevant to our investigation.
 - **Failed and Successful Logins**: We counted the number of **failed logins** and **successful logins** for each account and device combination.
 - **Filter Suspicious Logins**: We looked for accounts with **more than 5 failed attempts** followed by at least one successful login. This pattern suggests a **brute-force attack**.
+
+### **What it looks like in SQL**
+
 
 ### **Breakdown of the Code:**
 - `Timestamp > ago(30d)`: Focused on the past **30 days** to capture recent events.
@@ -71,6 +76,8 @@ We used **DeviceFileEvents** to track file activities such as **creation**, **re
 
 ### **The Query:**
 
+### **SQL Code**
+
 ```kusto
 DeviceFileEvents
 | where DeviceName == "corpnet-1-ny"  // Focus on the compromised machine
@@ -81,6 +88,8 @@ DeviceFileEvents
 | order by Timestamp desc  // Sort by most recent events
 ```
 The query tracked file events on the compromised machine **"corpnet-1-ny"**. We filtered by file extensions (e.g., `.pdf`, `.zip`, `.txt`) to identify relevant files that could contain sensitive data.
+
+### **What it looks like in SQL**
 
 ### **Breakdown of the Code:**
 - `DeviceName == "corpnet-1-ny"`: Focused the query on the compromised device.
@@ -101,6 +110,8 @@ Since **file modification** wasn’t captured, we switched to **DeviceEvents**, 
 ### **The Query:**
 We focused on events that track sensitive file **reads** (file access):
 
+### **SQL Code**
+
 ```kusto
 DeviceEvents
 | where DeviceName contains "corpnet-1-ny"  // Focus on the compromised machine
@@ -112,7 +123,7 @@ DeviceEvents
 - `ActionType contains "SensitiveFileRead"`: Focused on tracking when **sensitive files** are **accessed** or **read**.
 
 ### **What it looks like in SQL**
-![Image 1](file:///home/dylan/Pictures/Screenshots/Screenshot%20From%202025-01-30%2009-57-20.png)
+
 
 ### **What We Learned:**
 This query helped us identify when sensitive files were **accessed** or **read** by the attacker. Even if files were not modified, this could indicate **exfiltration** attempts.
@@ -145,9 +156,5 @@ This allowed us to trace the **attacker's movements** and better understand thei
 
 Remember, detecting and mitigating attacks like these requires constant vigilance and quick action. Stay secure! 🔐
 
-![Screenshot 1](file:///home/dylan/Pictures/Screenshots/Screenshot%20From%202025-01-30%2009-57-20.png)
 
-![Screenshot 2](file:///home/dylan/Pictures/Screenshots/Screenshot%20From%202025-01-30%2009-57-29.png)
-
-![Screenshot 3](file:///home/dylan/Pictures/Screenshots/Screenshot%20From%202025-01-30%2010-21-38.png)
 
