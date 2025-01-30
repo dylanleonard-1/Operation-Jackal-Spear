@@ -68,8 +68,45 @@ To identify **Egypt-based IPs**, we cross-referenced the IP addresses found in t
 By identifying the **location of IPs**, we can better understand the geographical source of the attack and check if the attack aligns with the known TTPs of the group.
 
 ---
-
 ## 📝 Step 3: Investigating File Events
+
+### **What We're Doing:**
+At this stage, we wanted to investigate **file creation**, **renaming**, and **modification** on the compromised machine **"corpnet-1-ny"**. We specifically looked for relevant files that could have been accessed or modified by the attacker, particularly focusing on file types like `.html`, `.pdf`, `.zip`, and `.txt`.
+### ** SQL Code**
+
+```kusto
+DeviceFileEvents
+| where DeviceName == "corpnet-1-ny"  // Focus on the compromised machine
+| where ActionType in ("FileCreated", "FileRenamed", "FileModified")  // Filter for creation, renaming, and modification
+| where RequestAccountName == "chadwick.s"  // Filter by user account
+| where Timestamp between(datetime(2025-01-29 00:00:00) .. datetime(2025-01-29 23:59:59))  // Filter by date/time
+| project Timestamp, RequestAccountName, ActionType, FileName, DeviceName  // Show relevant columns
+| order by Timestamp desc  // Sort by most recent events
+```
+### **What Happened:**
+I spent a significant amount of time here trying to search through the file creation and modification events. The results from the query showed numerous files being created and modified, but it was **difficult to pinpoint** the exact file relevant to the attack. The query returned a list of files like:
+
+- `wallet.html`
+- `wallet-crypto.html`
+- `wallet-buynow.html`
+- `tokenized-card.html`
+
+While these files were being created and modified, I was unable to identify a specific one that stood out as suspicious or tied to the **exfiltration** or **malicious activity** directly. At this stage, I couldn't conclusively link any of these files to the attacker's movements, which made it challenging to identify the exact files of interest. 
+
+**Here’s what I encountered**:
+- The **file names** didn’t directly hint at any sensitive information or key files, which made it hard to identify what had been accessed.
+- It was a time-consuming process, manually reviewing and analyzing the files involved, without finding a concrete match. 🔍
+
+### **Key Challenge:**
+Even though I had a detailed log of file modifications, I couldn't narrow it down to the specific **exfiltrated files** or those **directly related** to the attack. This required a further adjustment of our investigation approach in later steps. 🧠
+
+**Screenshot of the query results**:
+![screenshot](https://github.com/dylanleonard-1/dylanleonard-1/blob/main/Screenshot%20From%202025-01-30%2011-02-15.png)
+
+
+
+
+## 📝 Step 4: Investigating File Events
 
 ### **What We're Doing:**
 We used **DeviceFileEvents** to track file activities such as **creation**, **renaming**, or **modification** on the compromised machine. This is to identify any **sensitive files** that were altered or created during the attack.
@@ -102,7 +139,7 @@ Unfortunately, this query didn’t show the specific **.pdf** file we were looki
 
 ---
 
-## 🔍 Step 4: Using DeviceEvents for File Access
+## 🔍 Step 5: Using DeviceEvents for File Access
 
 ### **What We're Doing:**
 Since **file modification** wasn’t captured, we switched to **DeviceEvents**, which can track **file access** events (such as **reads**), which are critical for detecting unauthorized access or exfiltration.
@@ -130,7 +167,7 @@ This query helped us identify when sensitive files were **accessed** or **read**
 
 ---
 
-## 📂 Step 5: Detailed File Access Information
+## 📂 Step 6: Detailed File Access Information
 
 ### **What We're Doing:**
 We retrieved detailed information about the accessed file. The query showed that the file **CRISPR-X_Next-Generation_Gene_Editing_for_Artificial_Evolution.pdf** was accessed on the compromised machine.
