@@ -144,3 +144,10 @@ This allowed us to trace the **attacker's movements** and better understand thei
 ### ⚠️ Always Stay Alert! ✨
 
 Remember, detecting and mitigating attacks like these requires constant vigilance and quick action. Stay secure! 🔐
+
+![Screenshot 1](file:///home/dylan/Pictures/Screenshots/Screenshot%20From%202025-01-30%2009-57-20.png)
+
+![Screenshot 2](file:///home/dylan/Pictures/Screenshots/Screenshot%20From%202025-01-30%2009-57-29.png)
+
+![Screenshot 3](file:///home/dylan/Pictures/Screenshots/Screenshot%20From%202025-01-30%2010-21-38.png)
+
