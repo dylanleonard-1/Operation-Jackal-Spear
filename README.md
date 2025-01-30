@@ -102,7 +102,7 @@ While these files were being created and modified, I was unable to identify a sp
 Even though I had a detailed log of file modifications, I couldn't narrow it down to the specific **exfiltrated files** or those **directly related** to the attack. This required a further adjustment of our investigation approach in later steps. 🧠
 
 **Screenshot of the query results**:
-![screenshot](https://github.com/dylanleonard-1/dylanleonard-1/blob/main/Screenshot%20From%202025-01-30%2011-02-15.png)
+![screenshot](https://github.com/dylanleonard-1/dylanleonard-1/blob/main/Screenshot%20From%202025-01-30%2011-22-31.png)
 
 
 
