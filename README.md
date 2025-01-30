@@ -1,5 +1,5 @@
 # 🌍 Operation Jackal Spear 🦁
-[screenshot](https://raw.githubusercontent.com/dylanleonard-1/dylanleonard-1/refs/heads/main/669e1d04-0fd5-41ba-98c2-c73d5c8debf3.webp)
+![screenshot](https://raw.githubusercontent.com/dylanleonard-1/dylanleonard-1/refs/heads/main/669e1d04-0fd5-41ba-98c2-c73d5c8debf3.webp)
 
 Recent reports reveal a newly discovered Advanced Persistent Threat (APT) group known as **"Jackal Spear,"** originating from South Africa and occasionally operating in Egypt. This group has been targeting large corporations using **spear-phishing campaigns** and **credential stuffing attacks**. By exploiting stolen credentials, they can gain access to systems with minimal login attempts.
 
