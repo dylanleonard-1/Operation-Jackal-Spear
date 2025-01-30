@@ -90,8 +90,7 @@ DeviceFileEvents
 The query tracked file events on the compromised machine **"corpnet-1-ny"**. We filtered by file extensions (e.g., `.pdf`, `.zip`, `.txt`) to identify relevant files that could contain sensitive data.
 
 ### **What it looks like in SQL**
-![Screenshot 2](https://github.com/dylanleonard-1/dylanleonard-1/blob/main/Screenshot%20From%202025-01-30%2009-57-29.png?raw=true)
-
+![Screenshot 3](https://github.com/dylanleonard-1/dylanleonard-1/blob/main/Screenshot%20From%202025-01-30%2009-57-20.png?raw=true)
 ### **Breakdown of the Code:**
 - `DeviceName == "corpnet-1-ny"`: Focused the query on the compromised device.
 - `ActionType in ("FileCreated", "FileRenamed", "FileModified")`: Filtered for file creation, renaming, or modification events.
@@ -124,7 +123,7 @@ DeviceEvents
 - `ActionType contains "SensitiveFileRead"`: Focused on tracking when **sensitive files** are **accessed** or **read**.
 
 ### **What it looks like in SQL**
-![Screenshot 3](https://github.com/dylanleonard-1/dylanleonard-1/blob/main/Screenshot%20From%202025-01-30%2009-57-20.png?raw=true)
+![Screenshot 2](https://github.com/dylanleonard-1/dylanleonard-1/blob/main/Screenshot%20From%202025-01-30%2009-57-29.png?raw=true)
 
 ### **What We Learned:**
 This query helped us identify when sensitive files were **accessed** or **read** by the attacker. Even if files were not modified, this could indicate **exfiltration** attempts.
